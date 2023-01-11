@@ -1,0 +1,23 @@
+name: Lints
+
+on: [push, pull_request]
+
+jobs:
+  lints:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - name: Install Foundry
+        uses: onbjerg/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install Dependencies
+        run: yarn
+      - name: Update Modules
+        run: yarn sync
+      - name: Run lints
+        run: yarn lint
